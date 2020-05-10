@@ -1,26 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { makeStyles } from '@material-ui/core/styles';
+import { NavbarMenu } from './components/NavbarMenu';
+import { Switch, BrowserRouter, Route } from 'react-router-dom'
+import { TodoPage } from './pages/TodoPage';
+import { AboutPage } from './pages/AboutPage';
 
-function App() {
+const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+  },
+});
+
+const App: React.FC = () => {
+  const classes = useStyles();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <NavbarMenu />
+      <div className={classes.root}>
+        <Switch>
+          <Route component={TodoPage} path='/' exact />
+          <Route component={AboutPage} path='/about' />
+        </Switch>
+      </div>
+    </BrowserRouter>
+  )
 }
 
 export default App;
